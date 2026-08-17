@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ny_taxi_green_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "root"
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  ingestion:
+    build: .
+    depends_on:
+      - db
+    # La DB peut mettre quelques secondes à s'allumer. 
+    # Si le script Python plante car la DB n'est pas prête, Docker le redémarrera.
+    restart: on-failure
+    # On transmet les secrets du .env à l'intérieur du conteneur Python
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+volumes:
+  ny_taxi_green_data:
