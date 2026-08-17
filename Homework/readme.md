@@ -1,6 +1,7 @@
 # Q1 -->
 
- ## Command 1: docker run -it \
+ ## Command 1: 
+    docker run -it \
     --rm \
     --entrypoint=bash \
     python:3.13
@@ -16,7 +17,6 @@
 ## Answer : postgres:5432 and db:5432
 
 # Q3 -->
-
 SELECT COUNT(*) 
 FROM public.green_tripdata_2025_11 t
 WHERE t.trip_distance <= 1 
@@ -26,7 +26,6 @@ WHERE t.trip_distance <= 1
 ## Answer : 8,007
 
 # Q4 --> 
-
 SELECT 
     lpep_pickup_datetime::DATE AS pickup_day, 
     MAX(trip_distance) AS longest_distance
@@ -43,7 +42,6 @@ LIMIT 1;
 ## Answer : 2025-11-14
 
 # Q5 --> 
-
 SELECT 
 	zpu."Zone",
 	SUM(t.total_amount) AS Total,
@@ -58,8 +56,6 @@ ORDER BY Total DESC;
 ## Answer : East Harlem North
 
 # Q6 --> 
-
-
 SELECT 
     zdo."Zone" AS dropoff_zone,
     t.tip_amount
