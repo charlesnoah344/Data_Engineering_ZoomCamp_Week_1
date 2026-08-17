@@ -74,6 +74,6 @@ LIMIT 1;
 	
 ## Answer : Yorkville West
 
-# Q6 --> 
+# Q7 --> 
 
 ## Answer : terraform init, terraform apply -auto-approve, terraform destroy
